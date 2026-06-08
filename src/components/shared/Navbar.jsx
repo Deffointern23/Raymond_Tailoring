@@ -10,11 +10,11 @@ function Navbar({ searchTerm, setSearchTerm }) {
       {/* SEARCH BAR */}
       <div className="w-full lg:flex-1">
         <div className="flex items-center gap-3 bg-white px-4 py-3 rounded-2xl border border-[#E9DDFD] shadow-sm w-full lg:max-w-md">
-          <Search size={18} className="text-[#7C3AED] flex-shrink-0" />
+          <Search size={18} className="text-[#a59e88] flex-shrink-0" />
 
           <input
             type="text"
-            placeholder="Search products..."
+            placeholder="Search designs, categories, or posts..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="bg-transparent outline-none w-full text-sm text-gray-700 placeholder:text-gray-400"
@@ -26,7 +26,7 @@ function Navbar({ searchTerm, setSearchTerm }) {
      <div className="flex items-center justify-center lg:justify-end gap-4 w-full lg:w-auto">
         {/* NOTIFICATION */}
         <div className="relative cursor-pointer bg-white p-3 rounded-2xl border border-[#E9DDFD] shadow-sm hover:shadow-md transition">
-          <Bell size={20} className="text-[#7C3AED]" />
+          <Bell size={20} className="text-[#f5ca09]" />
 
           <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold">
             3
@@ -39,23 +39,23 @@ function Navbar({ searchTerm, setSearchTerm }) {
             onClick={() => setShowProfile(!showProfile)}
           className="flex items-center gap-3 bg-white px-3 sm:px-4 py-2 rounded-2xl border border-[#E9DDFD] shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer"
           >
-            <div className="w-11 h-11 rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#6D28D9] flex items-center justify-center font-bold text-white text-lg">
+            <div className="w-11 h-11 rounded-full bg-gradient-to-br from-[#746304] to-[#c59908] flex items-center justify-center font-bold text-white text-lg">
               {admin?.name?.charAt(0)?.toUpperCase() || "A"}
             </div>
 
             <div className="min-w-0">
-            <h3 className="font-semibold text-[#2E1463] text-sm sm:text-base whitespace-nowrap">
+            <h3 className="font-semibold text-[#b48010] text-sm sm:text-base whitespace-nowrap">
                 {admin?.name || "Admin"}
               </h3>
 
-              <p className="text-xs text-[#8B5CF6] truncate">
-                Jewellery Vendor
+              <p className="text-xs text-[#c58207] truncate">
+                Fashion Designer
               </p>
             </div>
 
             <ChevronDown
               size={18}
-              className={`text-[#8B5CF6] transition-transform ${
+              className={`text-[#ceb10d] transition-transform ${
                 showProfile ? "rotate-180" : ""
               }`}
             />
@@ -64,14 +64,14 @@ function Navbar({ searchTerm, setSearchTerm }) {
           {showProfile && (
             <div className="absolute right-0 top-16 w-[280px] max-w-[90vw] bg-white rounded-2xl border border-[#E9DDFD] shadow-xl p-4 z-50">
               <div className="flex items-center gap-3 border-b pb-3">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#6D28D9] flex items-center justify-center text-white font-bold">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#f1c811] to-[#d4d11c] flex items-center justify-center text-white font-bold">
                   {admin?.name?.charAt(0)?.toUpperCase()}
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-[#2E1463]">{admin?.name}</h3>
+                  <h3 className="font-bold text-[#8d5307]">{admin?.name}</h3>
 
-                  <p className="text-sm text-[#8B5CF6]">Jewellery Vendor</p>
+                  <p className="text-sm text-[#805804]">Fashion Designer</p>
                 </div>
               </div>
 

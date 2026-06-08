@@ -14,19 +14,19 @@ const [passwords, setPasswords] = useState({
   newPass: "",
 });
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F8F5FF] via-[#F3E8FF] to-[#EDE9FE] p-6">
-      <h1 className="text-3xl font-bold text-[#2E1463] mb-8">
+    <div className="min-h-screen bg-white p-6">
+      <h1 className="text-3xl font-bold text-[#dab307] mb-8">
         ⚙️ Profile Details
       </h1>
 
       {/* Profile Section */}
       <div
-        className="bg-gradient-to-br from-white via-[#FAF7FF] to-[#F3E8FF]
+        className="bg-white
 border border-[#E9DDFD]
                   p-6 rounded-2xl shadow-md mb-8
                   hover:shadow-lg transition"
       >
-        <h2 className="text-xl font-semibold text-[#5b458b] mb-5 border-b border-[#E9DDFD] pb-2">
+        <h2 className="text-xl font-semibold text-[#dda610] mb-5 border-b border-[#E9DDFD] pb-2">
           Profile Information
         </h2>
 
@@ -38,10 +38,9 @@ border border-[#E9DDFD]
   onChange={(e) =>
     setAdmin({ ...admin, name: e.target.value })
   }
-  className="bg-white/80 border border-[#D8B4FE]
-focus:border-[#8B5CF6]
-focus:ring-[#8B5CF6]/20
-                   p-3 rounded-xl outline-none transition"
+ className="bg-white/80 border border border-[#d8a12b]
+focus:border-[#A0522D]
+focus:ring-[#6F4E37]/20 p-3 rounded-xl outline-none transition"
 />
 
           <input
@@ -51,10 +50,9 @@ focus:ring-[#8B5CF6]/20
 onChange={(e) =>
   setAdmin({ ...admin, email: e.target.value })
 }
-            className="bg-white/80 border border-[#D8B4FE]
-focus:border-[#8B5CF6]
-focus:ring-[#8B5CF6]/20
-                   p-3 rounded-xl outline-none transition"
+            className="bg-white/80 border border border-[#d8a12b]
+focus:border-[#A0522D]
+focus:ring-[#6F4E37]/20 p-3 rounded-xl outline-none transition"
           />
 
           <input
@@ -64,10 +62,9 @@ focus:ring-[#8B5CF6]/20
 onChange={(e) =>
   setAdmin({ ...admin, phone: e.target.value })
 }
-            className="bg-white/80 border border-[#D8B4FE]
-focus:border-[#8B5CF6]
-focus:ring-[#8B5CF6]/20
-                   p-3 rounded-xl outline-none transition"
+          className="bg-white/80 border border border-[#d8a12b]
+focus:border-[#A0522D]
+focus:ring-[#6F4E37]/20 p-3 rounded-xl outline-none transition"
           />
 
           <input
@@ -77,10 +74,9 @@ focus:ring-[#8B5CF6]/20
 onChange={(e) =>
   setAdmin({ ...admin, store: e.target.value })
 }
-            className="bg-white/80 border border-[#D8B4FE]
-focus:border-[#8B5CF6]
-focus:ring-[#8B5CF6]/20
-                   p-3 rounded-xl outline-none transition"
+            className="bg-white/80 border border border-[#d8a12b]
+focus:border-[#A0522D]
+focus:ring-[#6F4E37]/20 p-3 rounded-xl outline-none transition"
           />
         </div>
 
@@ -89,7 +85,7 @@ focus:ring-[#8B5CF6]/20
     localStorage.setItem("admin", JSON.stringify(admin));
     alert("Profile Updated Successfully!");
   }}
-  className="mt-6 bg-gradient-to-r from-[#8B5CF6] to-[#6D28D9]
+  className="mt-6 bg-gradient-to-r from-[#f1e31c] to-[#b7c40b]
              text-white px-6 py-2 rounded-xl font-semibold
              shadow-md hover:scale-105 transition"
 >
@@ -103,7 +99,7 @@ focus:ring-[#8B5CF6]/20
 border border-[#E9DDFD]
                   p-6 rounded-2xl shadow-md hover:shadow-lg transition"
       >
-        <h2 className="text-xl font-semibold text-[#5b458b] mb-5 border-b border-[#E9DDFD] pb-2">
+        <h2 className="text-xl font-semibold text-[#dda610] mb-5 border-b border-[#E9DDFD] pb-2">
           Change Password
         </h2>
 
@@ -118,9 +114,9 @@ border border-[#E9DDFD]
       current: e.target.value,
     })
   }
-  className="bg-white/80 border border border-[#D8B4FE]
-focus:border-[#8B5CF6]
-focus:ring-[#8B5CF6]/20 p-3 rounded-xl outline-none"
+  className="bg-white/80 border border border-[#d8a12b]
+focus:border-[#A0522D]
+focus:ring-[#6F4E37]/20 p-3 rounded-xl outline-none"
 />
          <input
   type="password"
@@ -132,9 +128,9 @@ focus:ring-[#8B5CF6]/20 p-3 rounded-xl outline-none"
       newPass: e.target.value,
     })
   }
-  className="bg-white/80 border border-[#D8B4FE]
-focus:border-[#8B5CF6]
-focus:ring-[#8B5CF6]/20 p-3 rounded-xl outline-none"
+  className="bg-white/80 border border border-[#d8a12b]
+focus:border-[#A0522D]
+focus:ring-[#6F4E37]/20 p-3 rounded-xl outline-none"
 />
         </div>
 
@@ -158,7 +154,7 @@ focus:ring-[#8B5CF6]/20 p-3 rounded-xl outline-none"
 
     alert("Password updated successfully!");
   }}
-  className="mt-6 bg-gradient-to-r from-[#7C3AED] to-[#5B21B6]
+  className="mt-6 bg-gradient-to-r from-[#ecde10] to-[#a8ce20]
              text-white px-6 py-2 rounded-xl font-semibold
              shadow-md hover:scale-105 hover:shadow-xl transition"
 >

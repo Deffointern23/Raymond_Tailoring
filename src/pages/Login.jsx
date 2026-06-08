@@ -50,7 +50,7 @@ function Login() {
 
         <button
           onClick={handleLogin}
-          className="w-full bg-purple-600 text-white p-3 rounded"
+          className="w-full bg-blue-400 text-white p-3 rounded"
         >
           Login
         </button>
