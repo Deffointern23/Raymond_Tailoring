@@ -3,7 +3,6 @@ import {
   Outlet,
   useLocation,
   useNavigate,
-  Navigate,
 } from "react-router-dom";
 import { useState } from "react";
 import Navbar from "../components/shared/Navbar";
@@ -21,20 +20,15 @@ import {
 } from "lucide-react";
 
 function DashboardLayout() {
-  const isLoggedIn = localStorage.getItem("isLoggedIn");
-
-  if (!isLoggedIn) {
-    return <Navigate to="/login" replace />;
-  }
+ 
   const [searchTerm, setSearchTerm] = useState("");
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    localStorage.removeItem("isLoggedIn");
-    navigate("/login");
-  };
+ const handleLogout = () => {
+  navigate("/");
+};
 
   const menu = [
     { name: "Dashboard", path: "/", icon: LayoutDashboard },
