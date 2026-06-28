@@ -1,542 +1,384 @@
-import { User } from "lucide-react";
+import {
+  Clock3,
+  Package,
+  Truck,
+  CheckCircle2,
+  ChevronRight,
+} from "lucide-react";
+
 import { useState } from "react";
-const Orders = () => {
-  const [images, setImages] = useState({});
-  const [showQuoteModal, setShowQuoteModal] = useState(false);
-  const [quoteStage, setQuoteStage] = useState("draft");
-  const [currentStep, setCurrentStep] = useState(0);
-  const [stitchingCharge, setStitchingCharge] = useState("");
-  const [fabricCharge, setFabricCharge] = useState("");
-  const [timeline, setTimeline] = useState("");
-  const [recommendation, setRecommendation] = useState("");
-  const totalQuote =
-    (Number(stitchingCharge) || 0) + (Number(fabricCharge) || 0);
-  const isQuoteReady =
-    stitchingCharge &&
-    fabricCharge &&
-    recommendation?.trim() &&
-    timeline?.trim();
-  const steps = ["In Process", "Packed", "Out for Shipping", "Delivered"];
+
+function Orders() {
+  const [activeTab, setActiveTab] = useState("active");
+
   return (
-    <>
-      <div className="min-h-screen bg-[#F7F5F2] p-6">
-        <div className="relative mb-8">
-         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-            {/* LEFT SIDE */}
-            <div className="flex flex-wrap items-center gap-2 sm:gap-3 max-sm:flex-col max-sm:items-start">
-           <h1 className="text-2xl sm:text-3xl md:text-4xl font-serif text-[#2c241c] break-all">
-  #ORD-1485
-</h1>
+    <div className="min-h-screen bg-[#f8f6f2]">
+      {/* Header */}
+      <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-3 mb-5">
+        {/* LEFT */}
+        <div>
+          <h1 className="text-4xl font-serif text-[#2b241d]">Orders</h1>
 
-<div className="w-full flex gap-2 sm:w-auto">
-  <span className="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-medium">
-    Express
-  </span>
-
-  {quoteStage !== "sent" && (
-    <span className="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-xs font-medium">
-      Awaiting Quote
-    </span>
-  )}
-</div>
-            </div>
-
-            {/* RIGHT SIDE */}
-           <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
-              <button className="border border-gray-300 px-4 py-2 rounded-xl font-medium w-full sm:w-auto">
-                Message Customer
-              </button>
-
-              {quoteStage === "sent" && (
-                <button
-                  onClick={() => {
-                    if (currentStep === 0) setCurrentStep(1);
-                    else if (currentStep === 1) setCurrentStep(2);
-                    else if (currentStep === 2) setCurrentStep(3);
-                  }}
-                  className="bg-[#b88d3b] text-white px-4 py-2 rounded-xl font-medium w-full sm:w-auto"
-                >
-                  {currentStep === 0
-                    ? "→ Mark as Packed"
-                    : currentStep === 1
-                      ? "→ Shipped Order"
-                      : currentStep === 2
-                        ? "→ Deliver Order"
-                        : "✓ Completed"}
-                </button>
-              )}
-
-              {quoteStage === "draft" && (
-                <button
-                  onClick={() => setShowQuoteModal(true)}
-                  className="bg-[#b88d3b] text-white px-4 py-2 rounded-xl font-medium"
-                >
-                  Build Quote
-                </button>
-              )}
-            </div>
-          </div>
-          <p className="text-gray-500 text-sm md:text-base mt-3">
-            Custom Request • 1 garment Received on 1 May 2026, 07:25 PM
+          <p className="text-sm text-gray-500 mt-1">
+            Manage & track every custom tailoring order — cut, stitch, pack &
+            deliver
           </p>
         </div>
 
-        {/* TOP SECTION */}
-        <div className="grid lg:grid-cols-3 gap-4 mb-6">
-          <div className="bg-white border border-[#f1d8d1] rounded-3xl p-5 shadow-sm">
-            <h3 className="mb-4 flex items-center gap-2 text-[13px] uppercase tracking-wider text-gray-400 font-semibold">
-              👤 Customer
-            </h3>
+        {/* RIGHT */}
+        <div className="w-full lg:w-auto flex flex-col gap-3 lg:items-end lg:mr-2">
+          {/* Export button */}
+          <button className="h-8 px-3 lg:px-4 w-full md:w-auto lg:w-auto whitespace-nowrap bg-white border border-[#d7c29d] rounded-lg text-[11px] font-medium text-[#8d6d32] shadow-sm">
+            Export Orders
+          </button>
 
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 rounded-full bg-[#b88d3b] text-white flex items-center justify-center font-bold">
-                RT
-              </div>
+          {/* 4 buttons layout */}
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:flex gap-2 w-full lg:w-auto lg:justify-end">
+            {/* Retail Category */}
+            <div className="relative group">
+              <button className="h-8 px-3 w-full lg:w-auto min-w-[140px] whitespace-nowrap bg-white border border-[#d7c29d] rounded-lg text-[11px] font-medium text-[#8d6d32] shadow-sm">
+                Retail Category ▼
+              </button>
 
-              <div>
-                <h4 className="font-bold text-[#2c241c]">Ritik Thakran</h4>
+              <div className="absolute left-0 top-10 w-52 bg-white rounded-xl border border-[#ece4d8] shadow-lg hidden group-hover:block z-50 overflow-hidden">
+                <button className="w-full text-left px-4 py-2 text-[12px] hover:bg-[#faf8f5]">
+                  All Garment Types
+                </button>
 
-                <p className="text-gray-500 text-sm">+91 9811122333</p>
-              </div>
-            </div>
+                <button className="w-full text-left px-4 py-2 text-[12px] hover:bg-[#faf8f5] text-[#c49a42]">
+                  ✓ Bridal Lehenga
+                </button>
 
-            <p className="text-sm text-gray-600">
-              Penthouse, Oberoi Springs
-              <br />
-              Andheri West, Mumbai - 301702
-            </p>
-          </div>
+                <button className="w-full text-left px-4 py-2 text-[12px] hover:bg-[#faf8f5]">
+                  Wedding Sherwani
+                </button>
 
-          {/* NEEDS CONFIRMATION */}
-          <div className="bg-white border border-[#f1d8d1] rounded-3xl p-5 shadow-sm">
-            <p className="text-[13px] uppercase tracking-wider text-gray-400 font-semibold mb-3">
-              Delivery Constraint
-            </p>
+                <button className="w-full text-left px-4 py-2 text-[12px] hover:bg-[#faf8f5]">
+                  Designer Suit
+                </button>
 
-            <h3 className="text-[#c85f4c] text-3xl font-serif font-semibold mb-4">
-              Needs confirmation
-            </h3>
+                <button className="w-full text-left px-4 py-2 text-[12px] hover:bg-[#faf8f5]">
+                  Blouse Stitching
+                </button>
 
-            <div className="flex gap-2 mb-6">
-              <span className="px-3 py-1 rounded-full bg-[#fde8e2] text-[#d65f45] text-xs font-medium">
-                ⚡ Express requested
-              </span>
+                <button className="w-full text-left px-4 py-2 text-[12px] hover:bg-[#faf8f5]">
+                  Saree Fall/Pico
+                </button>
 
-              <span className="px-3 py-1 rounded-full bg-[#f5f1ee] text-gray-500 text-xs font-medium">
-                Express requested
-              </span>
-            </div>
-
-            <div className="space-y-3 text-sm">
-              <div className="flex justify-between">
-                <span className="text-gray-500">Order Received</span>
-                <span className="font-medium text-[#2c241c]">1 May, 2026</span>
-              </div>
-
-              <div className="flex justify-between">
-                <span className="text-gray-500">Measurement</span>
-                <span className="font-medium text-[#2c241c]">
-                  Home visit requested
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* PROCESS STATUS */}
-          <div className="bg-white border border-[#f1d8d1] rounded-3xl p-5 shadow-sm">
-            <p className="text-[13px] uppercase tracking-wider text-gray-400 font-semibold mb-3">
-              Process & Status
-            </p>
-
-            {quoteStage === "draft" ? (
-              <>
-                <div className="bg-[#fde8e2] border border-[#f1d8d1] rounded-xl p-4 mb-5">
-                  <h4 className="text-[#d65f45] font-semibold mb-1">
-                    Quote Pending
-                  </h4>
-
-                  <p className="text-sm text-gray-500">
-                    Send a cost estimate & timeline to start production.
-                  </p>
-                </div>
-
-                <div className="space-y-4 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">Payment</span>
-                    <span>—</span>
-                  </div>
-
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-500">Payment Status</span>
-
-                    <span className="px-3 py-1 rounded-full bg-[#fde8e2] text-[#d65f45] text-xs font-medium">
-                      Quote Pending
-                    </span>
-                  </div>
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="relative w-full mb-5">
-                  {/* STEPS ROW */}
-                  <div className="flex justify-between items-center relative z-10">
-                    {/* STEP 1 */}
-                    <div className="text-center">
-                      <div
-                        className={`w-10 h-10 mx-auto rounded-full flex items-center justify-center text-white ${
-                          currentStep >= 0 ? "bg-[#b88d3b]" : "bg-gray-300"
-                        }`}
-                      >
-                        ✓
-                      </div>
-                      <p className="text-xs mt-2">In Process</p>
-                    </div>
-
-                    {/* STEP 2 */}
-                    <div className="text-center">
-                      <div
-                        className={`w-10 h-10 mx-auto rounded-full flex items-center justify-center text-white ${
-                          currentStep >= 1 ? "bg-[#7a6ea8]" : "bg-gray-300"
-                        }`}
-                      >
-                        📦
-                      </div>
-                      <p className="text-xs mt-2">Packed</p>
-                    </div>
-
-                    {/* STEP 3 */}
-                    <div className="text-center">
-                      <div
-                        className={`w-10 h-10 mx-auto rounded-full flex items-center justify-center text-white ${
-                          currentStep >= 2 ? "bg-[#4b7b89]" : "bg-gray-300"
-                        }`}
-                      >
-                        🚚
-                      </div>
-                      <p className="text-xs mt-2">Shipping</p>
-                    </div>
-
-                    {/* STEP 4 */}
-                    <div className="text-center">
-                      <div
-                        className={`w-10 h-10 mx-auto rounded-full flex items-center justify-center text-white ${
-                          currentStep >= 3 ? "bg-[#6b8f67]" : "bg-gray-300"
-                        }`}
-                      >
-                        ✓
-                      </div>
-                      <p className="text-xs mt-2">Delivered</p>
-                    </div>
-                  </div>
-
-                  {/* LINE*/}
-                  <div className="absolute top-5 left-0 right-0 flex justify-between px-5 z-0">
-                    <div
-                      className={`flex-1 h-[2px] mx-2 ${
-                        currentStep >= 1 ? "bg-[#b88d3b]" : "bg-gray-300"
-                      }`}
-                    />
-
-                    <div
-                      className={`flex-1 h-[2px] mx-2 ${
-                        currentStep >= 2 ? "bg-[#7a6ea8]" : "bg-gray-300"
-                      }`}
-                    />
-
-                    <div
-                      className={`flex-1 h-[2px] mx-2 ${
-                        currentStep >= 3 ? "bg-[#4b7b89]" : "bg-gray-300"
-                      }`}
-                    />
-                  </div>
-                </div>
-                <div className="space-y-4 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">Payment</span>
-                    <span>—</span>
-                  </div>
-
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-500">Payment Status</span>
-
-                    <span className="px-3 py-1 rounded-full bg-[#fde8e2] text-[#d65f45] text-xs font-medium">
-                      {quoteStage === "draft" ? "Quote Pending" : "Quote Sent"}
-                    </span>
-                  </div>
-
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">Order Total</span>
-
-                    {quoteStage === "draft" ? (
-                      <span>—</span>
-                    ) : (
-                      <span className="font-bold text-[#b88d3b]">
-                        ₹{totalQuote}
-                      </span>
-                    )}
-                  </div>
-                  {quoteStage === "sent" && currentStep === 3 && (
-                    <div className="bg-green-100 text-green-700 p-3 rounded-xl text-center font-semibold mt-4">
-                      🎉 Order Completed
-                    </div>
-                  )}
-                </div>
-              </>
-            )}
-          </div>
-        </div>
-        {/* MEASUREMENTS */}
-        <div className="bg-white rounded-3xl p-5 mb-8">
-          <h3 className="font-semibold mb-4 flex items-center gap-2">
-            <User size={18} />
-            Customer Measurements Home Visit Requested
-          </h3>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            <Measure title="Chest" value='40"' />
-            <Measure title="Waist" value='38"' />
-            <Measure title="Shoulder" value='18.5"' />
-            <Measure title="Sleeve" value='24"' />
-            <Measure title="Length" value='33"' />
-            <Measure title="Neck" value='15"' />
-          </div>
-        </div>
-
-        {/* GARMENT WORKSHEET */}
-        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-5">
-          <span className="bg-[#f5efe4] px-3 py-1 rounded-full text-xs w-fit">
-            STITCHING
-          </span>
-
-          <h3 className="font-bold text-lg sm:text-xl break-words">Velvet Bandhgala</h3>
-
-          <span className="text-[#6b7d5b] font-medium text-sm break-words">
-            Bottle-green velvet proposed
-          </span>
-        </div>
-
-        {/* Upload Areas */}
-        <div className="grid md:grid-cols-4 gap-4 mb-6">
-          {[
-            "Front / Fabric",
-            "Back / Details",
-            "Reference 1",
-            "Reference 2",
-          ].map((title, index) => (
-            <label
-              key={index}
-              className="h-32 border-2 border-dashed border-gray-300 rounded-2xl flex flex-col items-center justify-center cursor-pointer text-gray-400 hover:bg-gray-50 transition"
-            >
-              <span className="text-sm font-semibold text-gray-400 mb-2">
-                {title}
-              </span>
-
-              {images[index] ? (
-                <img
-                  src={images[index]}
-                  alt="preview"
-                  className="w-full h-full object-cover rounded-2xl"
-                />
-              ) : (
-                <span>Upload Image</span>
-              )}
-
-              <input
-                type="file"
-                accept="image/*"
-                className="hidden"
-                onChange={(e) =>
-                  setImages({
-                    ...images,
-                    [index]: URL.createObjectURL(e.target.files[0]),
-                  })
-                }
-              />
-            </label>
-          ))}
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-6">
-          <div>
-            <h4 className="font-semibold mb-2">Customer Description</h4>
-
-            <div className="bg-[#f5efe4] p-4 rounded-xl text-sm">
-              Reception on the 14th. Bandhgala with satin lining and brooch
-              loop.
-            </div>
-          </div>
-
-          <div>
-            <h4 className="font-semibold mb-2">Stitching Method</h4>
-
-            <p className="text-gray-500">
-              To be finalised after measurements & fabric confirmation.
-            </p>
-          </div>
-        </div>
-        {showQuoteModal && (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-6 overflow-y-auto">
-            <div className="bg-[#f7f5f2] w-[620px] max-h-[85vh] rounded-[24px] shadow-2xl overflow-y-auto">
-              {/* HEADER */}
-              <div className="sticky top-0 bg-[#f7f5f2] px-6 py-5 border-b border-[#e4ddd5] flex justify-between items-start z-10">
-                <div>
-                  <h2 className="text-[32px] leading-none font-serif text-[#3a2c21]">
-                    Build a Quote
-                  </h2>
-
-                  <p className="text-sm text-[#a29487] mt-2">
-                    Custom request from Ritik Thakran · Custom Request
-                  </p>
-                </div>
-
-                <button
-                  onClick={() => setShowQuoteModal(false)}
-                  className="w-9 h-9 rounded-full border border-[#ddd] bg-white flex items-center justify-center"
-                >
-                  ✕
+                <button className="w-full text-left px-4 py-2 text-[12px] hover:bg-[#faf8f5]">
+                  Custom Request
                 </button>
               </div>
+            </div>
 
-              {/* BODY */}
-              <div className="p-5 space-y-4">
-                {/* CUSTOMER NOTE */}
-                <div className="bg-[#f4ebdc] border border-[#eadcc4] rounded-2xl p-5 mb-5">
-                  <p className="text-[#7f6f5f] italic leading-7">
-                    Reception on the 14th. Need a bandhgala with a contrast
-                    satin lining and a brooch loop. Please share price +
-                    timeline and book a measurement visit this week.
-                  </p>
+            <div className="relative group">
+              <button className="h-8 px-3 w-full lg:w-auto min-w-[140px] whitespace-nowrap bg-white border border-[#d7c29d] rounded-lg text-[11px] font-medium text-[#8d6d32] shadow-sm">
+                Data Export ▼
+              </button>
 
-                  <p className="text-[#8f8376] text-sm mt-3">— Ritik Thakran</p>
-                </div>
+              <div className="absolute left-0 top-10 w-40 bg-white rounded-xl border border-[#ece4d8] shadow-lg hidden group-hover:block z-50 overflow-hidden">
+                <button className="w-full text-left px-4 py-2 text-[12px] hover:bg-[#faf8f5] text-[#c49a42]">
+                  ✓ Today
+                </button>
 
-                {/* PRICE INPUTS */}
-                <div className="grid grid-cols-2 gap-3 mb-4">
-                  <div>
-                    <label className="text-sm font-medium text-[#5f5850] block mb-2">
-                      Stitching charge (₹)
-                    </label>
+                <button className="w-full text-left px-4 py-2 text-[12px] hover:bg-[#faf8f5]">
+                  This Week
+                </button>
 
-                    <input
-                      type="number"
-                      value={stitchingCharge}
-                      onChange={(e) => setStitchingCharge(e.target.value)}
-                      placeholder="e.g. 9500"
-                      className="w-full h-12 rounded-xl border border-[#ddd] px-4 bg-white"
-                    />
+                <button className="w-full text-left px-4 py-2 text-[12px] hover:bg-[#faf8f5]">
+                  This Month
+                </button>
+
+                <button className="w-full text-left px-4 py-2 text-[12px] hover:bg-[#faf8f5]">
+                  Last 30 Days
+                </button>
+
+                <button className="w-full text-left px-4 py-2 text-[12px] hover:bg-[#faf8f5]">
+                  All Time
+                </button>
+              </div>
+            </div>
+
+            <div className="relative group">
+              <button className="h-8 px-3 w-full lg:w-auto min-w-[110px] whitespace-nowrap bg-white border border-[#d7c29d] rounded-lg text-[11px] font-medium text-[#8d6d32] shadow-sm">
+                Filters ▼
+              </button>
+
+              <div className="absolute right-0 top-10 w-44 bg-white rounded-xl border border-[#ece4d8] shadow-lg hidden group-hover:block z-50 overflow-hidden">
+                <button className="w-full text-left px-4 py-2 text-[12px] hover:bg-[#faf8f5]">
+                  Express only
+                </button>
+
+                <button className="w-full text-left px-4 py-2 text-[12px] hover:bg-[#faf8f5]">
+                  Delivered only
+                </button>
+
+                <button className="w-full text-left px-4 py-2 text-[12px] hover:bg-[#faf8f5]">
+                  Unquoted requests
+                </button>
+
+                <button className="w-full text-left px-4 py-2 text-[12px] text-[#c75b4f] hover:bg-[#faf8f5]">
+                  Clear filters
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Tabs */}
+      <div className="flex items-center gap-8 border-b border-[#ece6dd] pb-3 mb-4">
+        <button
+          onClick={() => setActiveTab("active")}
+          className={`font-medium pb-2 ${
+            activeTab === "active"
+              ? "text-[#2b241d] border-b-2 border-[#c49a42]"
+              : "text-gray-400"
+          }`}
+        >
+          Active Orders
+        </button>
+
+        <button
+          onClick={() => setActiveTab("past")}
+          className={`font-medium pb-2 ${
+            activeTab === "past"
+              ? "text-[#2b241d] border-b-2 border-[#c49a42]"
+              : "text-gray-400"
+          }`}
+        >
+          Past Orders <span className="ml-1">2</span>
+        </button>
+      </div>
+
+      {/* TOP ACTIONS */}
+
+      {activeTab === "active" ? (
+        <>
+          {/* Alert */}
+          <div className="bg-[#fdecea] border border-[#f8d7d2] rounded-xl p-3 text-sm text-[#b4534a] mb-5">
+            🔥 <span className="font-medium">1 requires a quote.</span> Just
+            price it up & timeline — proceed to the next production stage.
+          </div>
+
+          {/* Top Layout */}
+          <div className="grid lg:grid-cols-[1fr_280px] gap-5">
+            {/* LEFT */}
+            <div>
+              {/* Stats */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
+                <Card
+                  icon={<Clock3 size={42} />}
+                  number="3"
+                  label="In Process"
+                  color="text-[#d3a44f]"
+                />
+
+                <Card
+                  icon={<Package size={42} />}
+                  number="2"
+                  label="Packed"
+                  color="text-[#8b7cc7]"
+                />
+
+                <Card
+                  icon={<Truck size={42} />}
+                  number="2"
+                  label="Out For Delivery"
+                  color="text-[#77a7b8]"
+                />
+
+                <Card
+                  icon={<CheckCircle2 size={42} />}
+                  number="0"
+                  label="Delivered"
+                  color="text-[#85b58f]"
+                />
+              </div>
+
+              {/* Table Header */}
+              <div className="hidden lg:grid grid-cols-7 px-4 text-[11px] uppercase tracking-wider text-gray-400 mb-2">
+                <div>Order</div>
+                <div>Customer</div>
+                <div>Type</div>
+                <div>Garment</div>
+                <div>Status</div>
+                <div>Total</div>
+                <div>ETA</div>
+              </div>
+
+              {/* Order Row */}
+              <div className="bg-white rounded-2xl border border-[#f0e8de] overflow-hidden">
+                <div className="flex">
+                  <div className="w-1 bg-[#d55b4a]" />
+
+                  <div className="flex-1 p-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-4 items-start lg:items-center">
+                      <div>
+                        <h3 className="font-semibold text-[#2b241d]">
+                          #ORD-1482
+                        </h3>
+
+                        <span className="text-[10px] bg-red-100 text-red-600 px-2 py-1 rounded-full">
+                          EXPRESS
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 rounded-full bg-[#8f5b75] text-white flex items-center justify-center text-xs">
+                          AM
+                        </div>
+
+                        <div>
+                          <p className="text-sm font-medium">Arshad Merchant</p>
+
+                          <p className="text-xs text-gray-400">Andheri West</p>
+                        </div>
+                      </div>
+
+                      <div className="text-sm text-gray-600">
+                        Bridal Lehenga
+                      </div>
+
+                      <div>
+                        <p className="text-sm font-medium">
+                          Maroon Silk Embroidered
+                        </p>
+
+                        <p className="text-xs text-gray-400">Lehenga Skirt</p>
+                      </div>
+
+                      <div>
+                        <div className="flex gap-2 mb-1">
+                          <div className="w-7 h-7 rounded-full bg-[#d3a44f]" />
+                          <div className="w-7 h-7 rounded-full bg-[#ece7df]" />
+                          <div className="w-7 h-7 rounded-full bg-[#ece7df]" />
+                          <div className="w-7 h-7 rounded-full bg-[#ece7df]" />
+                        </div>
+
+                        <p className="text-xs text-[#d3a44f]">In Process</p>
+                      </div>
+
+                      <div>
+                        <p className="font-semibold">₹53,850</p>
+
+                        <p className="text-xs text-gray-400">Paid 50%</p>
+                      </div>
+
+                      <div className="flex items-center justify-between lg:justify-between">
+                        <div>
+                          <p className="text-sm">29 May 2026</p>
+
+                          <p className="text-xs text-gray-400">12:30 PM</p>
+                        </div>
+
+                        <ChevronRight size={18} className="text-gray-400" />
+                      </div>
+                    </div>
                   </div>
-
-                  <div>
-                    <label className="text-sm font-medium text-[#5f5850] block mb-2">
-                      Fabric / material (₹)
-                    </label>
-
-                    <input
-                      type="number"
-                      value={fabricCharge}
-                      onChange={(e) => setFabricCharge(e.target.value)}
-                      placeholder="e.g. 6000"
-                      className="w-full h-12 rounded-xl border border-[#ddd] px-4 bg-white"
-                    />
-                  </div>
                 </div>
+              </div>
+            </div>
 
-                {/* TIMELINE */}
-                <div className="mb-5">
-                  <label className="text-sm font-medium text-[#5f5850] block mb-2">
-                    Estimated timeline
-                  </label>
+            {/* RIGHT PANEL */}
+            <div className="space-y-4">
+              <div className="bg-white rounded-2xl p-4 border border-[#eee6dc]">
+                <h3 className="font-semibold mb-4">Order Summary</h3>
 
-                  <select
-                    value={timeline}
-                    onChange={(e) => setTimeline(e.target.value)}
-                    className="w-full h-12 rounded-xl border border-[#ddd] px-4 bg-white"
-                  >
-                    <option value="">Select Timeline</option>
-                    <option value="7 days">7 days — Standard</option>
-                    <option value="5 days">5 days — Express</option>
-                    <option value="10 days">10 days — Premium Finish</option>
-                  </select>
+                <div className="space-y-3 text-sm">
+                  <Row label="Total Orders" value="34" />
+                  <Row label="Total Revenue" value="₹7,42,800" />
+                  <Row label="Average Order Value" value="₹19,082" />
+                  <Row label="Production" value="+20.4%" green />
                 </div>
+              </div>
 
-                {/* RECOMMENDATION */}
-                <div className="mb-5">
-                  <label className="text-sm font-medium text-[#5f5850] block mb-2">
-                    Recommendations to customer
-                  </label>
+              <div className="bg-white rounded-2xl p-4 border border-[#eee6dc]">
+                <h3 className="font-semibold mb-4">Top Garment Categories</h3>
 
-                  <textarea
-                    rows={4}
-                    value={recommendation}
-                    onChange={(e) => setRecommendation(e.target.value)}
-                    placeholder="Suggest fabric, fit notes, add-ons..."
-                    className="w-full rounded-xl border border-[#ddd] p-4 resize-none"
-                  />
-                </div>
-
-                {/* SUMMARY */}
-                <div className="bg-white border border-[#ddd] rounded-2xl p-4 mb-6">
-                  <div className="flex justify-between py-2 text-[#555]">
-                    <span>Stitching</span>
-                    <span>₹{stitchingCharge || 0}</span>
-                  </div>
-
-                  <div className="border-t my-2"></div>
-
-                  <div className="flex justify-between py-2 text-[#555]">
-                    <span>Fabric / material</span>
-                    <span>₹{fabricCharge || 0}</span>
-                  </div>
-
-                  <div className="border-t my-2"></div>
-
-                  <div className="flex justify-between py-2 font-bold text-[#2c241c]">
-                    <span>Quote Total</span>
-
-                    <span className="text-[#b88d3b] text-xl font-bold">
-                      ₹{totalQuote}
-                    </span>
-                  </div>
-                </div>
-
-                {/* BUTTONS */}
-                <div className="flex justify-end gap-3">
-                  <button
-                    onClick={() => setShowQuoteModal(false)}
-                    className="px-6 py-3 rounded-xl bg-white border border-[#ddd] font-medium"
-                  >
-                    Cancel
-                  </button>
-
-                  <button
-                    disabled={!isQuoteReady}
-                    onClick={() => {
-                      setShowQuoteModal(false);
-                      setQuoteStage("sent");
-                      setCurrentStep(0);
-                    }}
-                    className={`px-8 py-3 rounded-xl text-white font-medium transition-all ${
-                      isQuoteReady
-                        ? "bg-[#b88d3b] hover:bg-[#a57d31]"
-                        : "bg-gray-300 cursor-not-allowed"
-                    }`}
-                  >
-                    ✈ Send Quote to Customer
-                  </button>
+                <div className="space-y-3 text-sm">
+                  <Row label="Bridal / Wedding Wear" value="33%" />
+                  <Row label="Designer Suits" value="23%" />
+                  <Row label="Ethnic Wear" value="18%" />
+                  <Row label="Blouse & Stitching" value="14%" />
                 </div>
               </div>
             </div>
           </div>
-        )}
-      </div>
-    </>
+        </>
+      ) : (
+        <div className="grid lg:grid-cols-[1fr_280px] gap-5">
+          {/* LEFT */}
+          <div className="bg-white rounded-2xl border border-[#eee6dc] h-[170px] flex items-center justify-center shadow-sm">
+            <div className="text-center">
+              <div className="text-3xl mb-2">📦</div>
+
+              <p className="text-sm text-gray-400">
+                No orders match your filters.
+              </p>
+            </div>
+          </div>
+
+          {/* RIGHT */}
+          <div className="space-y-4">
+            <div className="bg-white rounded-2xl p-4 border border-[#eee6dc]">
+              <h3 className="font-semibold mb-4">Order Summary</h3>
+
+              <div className="space-y-3 text-sm">
+                <Row label="Total Orders" value="36" />
+                <Row label="Total Revenue" value="₹8,43,600" />
+                <Row label="Average Order Value" value="₹10,082" />
+                <Row label="This Month" value="+11.6%" green />
+              </div>
+            </div>
+
+            <div className="bg-white rounded-2xl p-4 border border-[#eee6dc]">
+              <h3 className="font-semibold mb-4">Top Garment Categories</h3>
+
+              <div className="space-y-3 text-sm">
+                <Row label="Bridal / Wedding Wear" value="33%" />
+                <Row label="Designer Suits" value="23%" />
+                <Row label="Ethnic Wear" value="18%" />
+                <Row label="Blouse & Stitching" value="14%" />
+              </div>
+            </div>
+
+            <div className="bg-white rounded-2xl p-4 border border-[#eee6dc]">
+              <h3 className="font-semibold mb-4">Recent Activity</h3>
+
+              <div className="space-y-2 text-xs text-gray-500">
+                <p>• New quote request from Ayesha Khan</p>
+                <p>• Order #ORD-1458 moved to Packed</p>
+                <p>• Order #ORD-1461 delivered</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
-};
-function Measure({ title, value }) {
+}
+
+function Card({ icon, number, label, color }) {
   return (
-    <div className="bg-[#F6F4F0] rounded-xl p-3">
-      <p className="text-xs text-gray-500">{title}</p>
-      <h4 className="font-bold text-lg">{value}</h4>
+    <div className="bg-white rounded-2xl p-4 border border-[#eee6dc] flex flex-col items-center justify-center text-center min-h-[140px]">
+      <div className={`mb-3 ${color}`}>{icon}</div>
+
+      <h2 className="text-2xl font-bold mb-1">{number}</h2>
+
+      <p className="text-sm text-gray-500">{label}</p>
+    </div>
+  );
+}
+
+function Row({ label, value, green }) {
+  return (
+    <div className="flex justify-between">
+      <span className="text-gray-500">{label}</span>
+
+      <span className={green ? "text-green-600 font-medium" : "font-medium"}>
+        {value}
+      </span>
     </div>
   );
 }

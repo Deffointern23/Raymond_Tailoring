@@ -15,7 +15,7 @@ const [passwords, setPasswords] = useState({
 });
   return (
     <div className="min-h-screen bg-white p-6">
-      <h1 className="text-3xl font-bold text-[#dab307] mb-8">
+      <h1 className="text-3xl font-bold text-[#df8f28] mb-8">
         ⚙️ Profile Details
       </h1>
 
@@ -26,7 +26,7 @@ border border-[#E9DDFD]
                   p-6 rounded-2xl shadow-md mb-8
                   hover:shadow-lg transition"
       >
-        <h2 className="text-xl font-semibold text-[#dda610] mb-5 border-b border-[#E9DDFD] pb-2">
+        <h2 className="text-xl font-semibold text-[#4b4a48] mb-5 border-b border-[#E9DDFD] pb-2">
           Profile Information
         </h2>
 
@@ -85,7 +85,7 @@ focus:ring-[#6F4E37]/20 p-3 rounded-xl outline-none transition"
     localStorage.setItem("admin", JSON.stringify(admin));
     alert("Profile Updated Successfully!");
   }}
-  className="mt-6 bg-gradient-to-r from-[#f1e31c] to-[#b7c40b]
+  className="mt-6 bg-gradient-to-r from-[#e4941c] to-[#ebb643]
              text-white px-6 py-2 rounded-xl font-semibold
              shadow-md hover:scale-105 transition"
 >
@@ -99,7 +99,7 @@ focus:ring-[#6F4E37]/20 p-3 rounded-xl outline-none transition"
 border border-[#E9DDFD]
                   p-6 rounded-2xl shadow-md hover:shadow-lg transition"
       >
-        <h2 className="text-xl font-semibold text-[#dda610] mb-5 border-b border-[#E9DDFD] pb-2">
+        <h2 className="text-xl font-semibold text-[#4b4a48] mb-5 border-b border-[#E9DDFD] pb-2">
           Change Password
         </h2>
 
@@ -154,7 +154,7 @@ focus:ring-[#6F4E37]/20 p-3 rounded-xl outline-none"
 
     alert("Password updated successfully!");
   }}
-  className="mt-6 bg-gradient-to-r from-[#ecde10] to-[#a8ce20]
+  className="mt-6 bg-gradient-to-r from-[#e4941c] to-[#ebb643]
              text-white px-6 py-2 rounded-xl font-semibold
              shadow-md hover:scale-105 hover:shadow-xl transition"
 >

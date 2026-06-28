@@ -1,7 +1,14 @@
 import { useState } from "react";
 import { Search, Bell, ChevronDown } from "lucide-react";
-
+import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 function Navbar({ searchTerm, setSearchTerm }) {
+  const location = useLocation();
+const searchQuery = location.state?.search || "";
+  const navigate = useNavigate();
+const handleSearch = (value) => {
+  navigate("/posts", { state: { search: value } });
+};
   const [showProfile, setShowProfile] = useState(false);
   const admin = JSON.parse(localStorage.getItem("admin"));
 
@@ -10,22 +17,33 @@ function Navbar({ searchTerm, setSearchTerm }) {
       {/* SEARCH BAR */}
       <div className="w-full lg:flex-1">
         <div className="flex items-center gap-3 bg-white px-4 py-3 rounded-2xl border border-[#E9DDFD] shadow-sm w-full lg:max-w-md">
-          <Search size={18} className="text-[#a59e88] flex-shrink-0" />
+        <Search
+  size={18}
+  className="text-[#a59e88] flex-shrink-0 cursor-pointer"
+  onClick={handleSearch}
+/>
 
-          <input
-            type="text"
-            placeholder="Search designs, categories, or posts..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="bg-transparent outline-none w-full text-sm text-gray-700 placeholder:text-gray-400"
-          />
+        <input
+  type="text"
+  placeholder="Search designs, categories, or posts..."
+  value={searchTerm}
+  onChange={(e) => {
+  setSearchTerm(e.target.value);
+  handleSearch(e.target.value);
+}}
+  onKeyDown={(e) => {
+    if (e.key === "Enter") handleSearch();
+  }}
+  className="bg-transparent outline-none w-full text-sm text-gray-700 placeholder:text-gray-400"
+/>
         </div>
       </div>
 
       {/* RIGHT SECTION */}
      <div className="flex items-center justify-center lg:justify-end gap-4 w-full lg:w-auto">
         {/* NOTIFICATION */}
-        <div className="relative cursor-pointer bg-white p-3 rounded-2xl border border-[#E9DDFD] shadow-sm hover:shadow-md transition">
+        <div 
+        onClick={() => navigate("/notifications")} className="relative cursor-pointer bg-white p-3 rounded-2xl border border-[#E9DDFD] shadow-sm hover:shadow-md transition">
           <Bell size={20} className="text-[#f5ca09]" />
 
           <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold">
@@ -49,7 +67,7 @@ function Navbar({ searchTerm, setSearchTerm }) {
               </h3>
 
               <p className="text-xs text-[#c58207] truncate">
-                Fashion Designer
+                Vendor Suite
               </p>
             </div>
 
@@ -71,7 +89,7 @@ function Navbar({ searchTerm, setSearchTerm }) {
                 <div>
                   <h3 className="font-bold text-[#8d5307]">{admin?.name}</h3>
 
-                  <p className="text-sm text-[#805804]">Fashion Designer</p>
+                  <p className="text-sm text-[#805804]">Vendor Suite</p>
                 </div>
               </div>
 

@@ -9,6 +9,9 @@ import Settings from "../pages/Settings";
 import Login from "../pages/Login";
 import Reviews from "../pages/Reviews";
 import Payments from "../pages/Payments";
+import Notifications from "../pages/Notifications";
+import OrderDetails from "../components/orders/OrderDetails";
+import StoreFront from "../pages/StoreFront";
 
 function AppRoutes() {
   return (
@@ -18,12 +21,15 @@ function AppRoutes() {
         <Route path="/" element={<DashboardLayout />}>
           <Route index element={<Dashboard />} />
           <Route path="orders" element={<Orders />} />
+          <Route path="orders/:id" element={<OrderDetails />} />
           <Route path="posts" element={<Posts />} />
           <Route path="customers" element={<Customers />} />
           <Route path="reviews" element={<Reviews />} />
           <Route path="analytics" element={<Analytics />} />
           <Route path="payments" element={<Payments />} />
           <Route path="settings" element={<Settings />} />
+          <Route path="notifications" element={<Notifications />} />
+          <Route path="/store" element={<StoreFront />} />
         </Route>
       </Routes>
     </BrowserRouter>
